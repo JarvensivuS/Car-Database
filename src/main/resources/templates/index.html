@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trafi.fi</title>
+</head>
+<body>
+<div class ="header">
+    <h1>TRAFI DMV</h1>
+    <p>Trafin Autotietokanta.</p>
+    <form id="form_id" method="get" name="myform">
+        <label >Find a car by id:</label><br>
+        <input id="inputid" type="text" name="inputid"><br>
+        <button onclick="getURL()">Search</button><a href="http://localhost:8080/cars">Car Database</a>
+    </form>
+    
+    <p></p>
+    <form id="form_id" method="post" action="http://localhost:8080/addCar"name="myform3">
+    <label >Make:</label><br>
+    <input id="inputmake" type="text" name="inputmake"><br>
+    <label >Model:</label><br>
+    <input id="inputmodel" type="text" name="inputmodel"><br>
+    <label >License plate:</label><br>
+    <input id="inputplate" type="text" name="inputplate"><br>
+    <input type="submit" name="submit"><br>
+    </form>
+
+    <p></p>
+    <form id="form_id" method="post"action="http://localhost:8080/deleteCar" name="myform2">
+        <label >Car id:</label><br>
+        <input id="deleteid" type="text" name="deleteid"><br>
+        <button onclick="deleteCar()">Delete car</button>
+    </form>
+    
+</div>
+<script src="script.js" defer></script>
+</body>
+</html>
