@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.samuli.project.CustomExceptions.CarNotFoundException;
+import com.samuli.project.CustomExceptions.DatabaseEmptyException;
 import com.samuli.project.Data.Car;
 import com.samuli.project.Repository.CarRepository;
 import jakarta.annotation.PostConstruct;
@@ -32,13 +35,18 @@ public class CarRestController {
     } */
    
     @GetMapping("/cars")
-    public List<String> getCars() 
+    public List<String> getCars() throws DatabaseEmptyException
     {
-        List<String> carList = new ArrayList<>();
         Long iterator = 1L;
-        if (carRepository.findAll().isEmpty()) {
+        List<String> carList = new ArrayList<>();
+        List<String> errorList = new ArrayList<>();
+
+        if (carRepository.findAll().isEmpty()){
             carList.add(0, "Database empty!");
-            return carList;
+            DatabaseEmptyException exception = new DatabaseEmptyException("No cars found in database!");
+            errorList.add(exception.toString());
+            System.out.println(exception.toString());
+            return errorList;
         }
         for (int i = 0; i < carRepository.count(); i++) {
             carList.add(i, carRepository.findByID(iterator));
@@ -48,10 +56,12 @@ public class CarRestController {
     }
 
     @GetMapping("/cars/{id}")
-    public String getCar(@PathVariable(value ="id")Long id) 
+    public String getCar(@PathVariable(value ="id")Long id) throws CarNotFoundException
     {
         if (carRepository.findByID(id) == null) {
-            return "Car with id of " + id + " doesnt exist!";
+            CarNotFoundException exception = new CarNotFoundException("Car with the id of " + id + " not found!");
+            System.out.println(exception.toString());
+            return exception.toString();
 
         }
         return carRepository.findByID(id);
@@ -73,12 +83,14 @@ public class CarRestController {
         
         //Workaround for @DeleteMapping, HTML form only supports @POST or @GET methods.
         @PostMapping("deleteCar")
-        public String deleteCar(@RequestParam("deleteid")Long id)
+        public String deleteCar(@RequestParam("deleteid")Long id) throws CarNotFoundException
          {
             if (carRepository.findByID(id) != null) {
                 carRepository.deleteCar(id);
                 return "car with id of  " + id + " deleted succesfully!";
             }
-            return "Car with id of " + id + " doesnt exist!";
+            CarNotFoundException exception = new CarNotFoundException("Car with the id of " + id + " doesnt exist!");
+            System.out.println(exception.toString());
+            return exception.toString();
         }
 }
