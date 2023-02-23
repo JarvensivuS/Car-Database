@@ -2,6 +2,8 @@
 
 package com.samuli.project.Repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -12,6 +14,10 @@ import jakarta.transaction.Transactional;
 
 @Repository
 public interface CarRepository extends JpaRepository<Car,Long>{
+
+    
+    @Query(value = "select * from car",nativeQuery = true)
+    List<String> getCars();
 
     @Query(value = "select * from car where id = :id",nativeQuery = true)
     String findByID(Long id);
