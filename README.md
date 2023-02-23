@@ -8,7 +8,7 @@ Here's our CRUD-operations, where we are able to use the auto-generated ID to ma
 
 
 # Adding a new car
-Given the required information we can submit the car into the database and afterwards check it was succesfully created.
+Given the required information we can submit the car into the database and afterwards check if it was succesfully created.
 
 ![0da45c204aa3d3d18b79ad65caa19169](https://user-images.githubusercontent.com/47556122/220856939-ec41a345-cbd7-49da-85b5-ae4e96a78fc9.gif)
 
