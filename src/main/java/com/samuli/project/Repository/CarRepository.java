@@ -28,6 +28,11 @@ public interface CarRepository extends JpaRepository<Car,Long>{
 
     @Transactional
     @Modifying
+    @Query(value = "update car set plate_number = :plateNumber where id =:id",nativeQuery = true)
+    void updateCar(@Param("id")Long id,@Param("plateNumber")String plateNumber);
+
+    @Transactional
+    @Modifying
     @Query(value = "delete from car where id = :id",nativeQuery = true)
     int deleteCar(Long id);
     

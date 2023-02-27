@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Trafi.fi</title>
+    <title>Trafikki.fi</title>
 </head>
 <body>
 <div class ="header">
-    <h1>TRAFI DMV</h1>
-    <p>Trafin Autotietokanta.</p>
+    <h1>TRAFIKKI DMV</h1>
+    <p>Tervetuloa Trafikin Autotietokantaan.</p>
     <form id="form_id" method="get" name="myform">
         <label >Find a car by id:</label><br>
         <input id="inputid" type="text" name="inputid"><br>
@@ -15,21 +15,30 @@
     </form>
     
     <p></p>
-    <form id="form_id" method="post" action="http://localhost:8080/addCar"name="myform3">
-    <label >Make:</label><br>
-    <input id="inputmake" type="text" name="inputmake"><br>
-    <label >Model:</label><br>
-    <input id="inputmodel" type="text" name="inputmodel"><br>
-    <label >License plate:</label><br>
-    <input id="inputplate" type="text" name="inputplate"><br>
-    <input type="submit" name="submit"><br>
+    <form id="form_id" method="post" action="http://localhost:8080/addCar"name="createForm">
+        <label >Make:</label><br>
+        <input id="inputmake" type="text" name="inputmake"><br>
+        <label >Model:</label><br>
+        <input id="inputmodel" type="text" name="inputmodel"><br>
+        <label >License plate:</label><br>
+        <input id="inputplate" type="text" name="inputplate"><br>
+        <input type="submit" name="submit"><br>
     </form>
 
     <p></p>
-    <form id="form_id" method="post"action="http://localhost:8080/deleteCar" name="myform2">
+    <form id="form_id" method="post"action="http://localhost:8080/updateCar" name="updateForm">
+        <label >Id of the car that will be updated:</label><br>
+        <input id="updateid" type="text" name="updateid"><br>
+        <label >New License plate:</label><br>
+        <input id="updateplate" type="text" name="updateplate"><br>
+        <input type="submit" name="submit"><br>
+    </form>
+
+    <p></p>
+    <form id="form_id" method="post"action="http://localhost:8080/deleteCar" name="deleteForm">
         <label >Car id:</label><br>
         <input id="deleteid" type="text" name="deleteid"><br>
-        <button onclick="deleteCar()">Delete car</button>
+        <button >Delete car</button>
     </form>
     
 </div>

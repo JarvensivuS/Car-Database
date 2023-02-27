@@ -47,7 +47,8 @@ public class CarRestController {
         } else {
             return carRepository.getCars();
         }
-    }   
+    }
+
     @GetMapping("/cars/{id}")
     public String getCar(@PathVariable(value ="id")Long id) throws CarNotFoundException
     {
@@ -61,28 +62,39 @@ public class CarRestController {
     
     @PostMapping("addCar")
     public String addCar (
-            @RequestParam("inputmake") String make, 
-            @RequestParam("inputmodel") String model,
-            @RequestParam("inputplate") String plateNumber) 
-        {
-            Car car2 = new Car();
-            car2.setMake(make);
-            car2.setModel(model);
-            car2.setPlateNumber(plateNumber);
-            carRepository.save(car2);
-            return "car id " + car2.getId() + " added succesfully!" ;
-        }
-        
-        //Workaround for @DeleteMapping, HTML form only supports @POST or @GET methods.
-        @PostMapping("deleteCar")
-        public String deleteCar(@RequestParam("deleteid")Long id) throws CarNotFoundException
-         {
-            if (carRepository.findByID(id) != null) {
-                carRepository.deleteCar(id);
-                return "car with id of  " + id + " deleted succesfully!";
-            }
-            CarNotFoundException exception = new CarNotFoundException("Car with the id of " + id + " doesnt exist!");
-            System.out.println(exception.toString());
+        @RequestParam("inputmake") String make, 
+        @RequestParam("inputmodel") String model,
+        @RequestParam("inputplate") String plateNumber) 
+    {
+        Car car2 = new Car();
+        car2.setMake(make);
+        car2.setModel(model);
+        car2.setPlateNumber(plateNumber);
+        carRepository.save(car2);
+        return "car id " + car2.getId() + " added succesfully!" ;
+    }
+
+    @PostMapping("updateCar")
+    public String updateCar(@RequestParam("updateid")Long id,@RequestParam("updateplate")String plateNumber) throws CarNotFoundException {
+        if (carRepository.findByID(id) == null) {
+            CarNotFoundException exception = new CarNotFoundException("Car with the id of " + id + " not found!");
             return exception.toString();
+
         }
+        carRepository.updateCar(id,plateNumber);
+        return "car with id " + id + " updated to plate " + plateNumber ;
+    }
+    
+    //Workaround for @DeleteMapping, HTML form only supports @POST or @GET methods.
+    @PostMapping("deleteCar")
+    public String deleteCar(@RequestParam("deleteid")Long id) throws CarNotFoundException
+        {
+        if (carRepository.findByID(id) != null) {
+            carRepository.deleteCar(id);
+            return "car with id of  " + id + " deleted succesfully!";
+        }
+        CarNotFoundException exception = new CarNotFoundException("Car with the id of " + id + " doesnt exist!");
+        System.out.println(exception.toString());
+        return exception.toString();
+    }
 }
