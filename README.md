@@ -2,7 +2,7 @@
 Handling HTTP requests using Spring Boot and H2 Database.
 
 # Main Menu
-Here's our Main HTML form, where we are able to search, add, update and delete cars.
+Here's the main HTML form, where we are able to search, add, update and delete cars.
 
 ![image](https://user-images.githubusercontent.com/47556122/221501406-e9715bda-0eef-43d3-babe-22afa63dad73.png)
 
